@@ -34,7 +34,8 @@ data:
         "search": {
           "enable": true
         }
-      }
+      },
+      "compatibility": ["docker"]
     }
 ---
 apiVersion: apps/v1
