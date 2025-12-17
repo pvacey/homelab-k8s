@@ -62,7 +62,7 @@ spec:
           mountPath: /etc/zot
         - name: data-volume
           mountPath: /var/lib/zot
-        command: ["/usr/bin/zot", "serve", "/etc/zot/config.json"]
+        #command: ["/usr/bin/zot", "serve", "/etc/zot/config.json"]
       volumes:
       - name: config-volume
         configMap:
