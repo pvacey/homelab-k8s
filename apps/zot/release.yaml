@@ -35,7 +35,7 @@ data:
         "search": {
           "enable": true
         }
-      },
+      }
     }
 ---
 apiVersion: apps/v1
