@@ -44,7 +44,6 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: ''
       messageTemplate: |
         chore: update images
       
