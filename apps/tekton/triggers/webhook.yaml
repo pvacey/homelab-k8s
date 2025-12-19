@@ -39,8 +39,8 @@ kind: EventListener
 metadata:
   name: git-listener
   namespace: tekton-pipelines
-serviceAccountName: tekton-trigger-sa
 spec:
+  serviceAccountName: tekton-trigger-sa
   triggers:
     - bindingRef:
         name: git-binding
