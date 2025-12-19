@@ -51,7 +51,7 @@ spec:
     - name: repo-name
       value: $(extensions.repo_name_only)
     - name: image-tag
-      value: $(extensions.short_sha)
+      value: $(extensions.dynamic_tag)
 ---
 # 5. The Trigger Template (Creates the PipelineRun)
 apiVersion: triggers.tekton.dev/v1beta1
@@ -115,6 +115,9 @@ spec:
                   expression: "body.repository.full_name.split('/')[1]"
                 - key: short_sha
                   expression: "body.head_commit.id.truncate(7)"
+                - key: dynamic_tag
+                  # Combine them: e.g., 1700000000-a1b2c3d
+                  expression: "extensions.epoch_time + '-' + extensions.short_sha"
       bindings:
         - ref: git-binding
         - name: dockerfile-path
