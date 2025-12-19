@@ -19,10 +19,10 @@ spec:
   imageRepositoryRef:
     name: pondering-repo
   policy:
-    alphabetical:
+    numerical:
       order: asc
-    filterBy:
-    re: '^([a-f0-9]{7,40})$'
+  filterBy:
+    re: '^(\d+)-[a-f0-9]+$'
 ---
 # 3. THE AUTOMATION: Commits the change back to your Git repo
 apiVersion: image.toolkit.fluxcd.io/v1
