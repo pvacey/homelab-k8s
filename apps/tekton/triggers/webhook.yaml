@@ -100,8 +100,6 @@ kind: EventListener
 metadata:
   name: git-listener
   namespace: tekton-pipelines
-data:
-  loglevel.eventlistener: "debug"
 spec:
   serviceAccountName: tekton-trigger-sa
   triggers:
