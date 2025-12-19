@@ -44,12 +44,7 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: |
-        chore: update images
-      
-        {{ range .Changed.Images -}}
-        - {{ .Identifier }} to {{ .NewTag }}
-        {{ end -}}
+      messageTemplate: "it works"
     push:
       branch: main
   update:
