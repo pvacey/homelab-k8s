@@ -14,6 +14,9 @@ metadata:
   namespace: tekton-pipelines
   name: git-template
 spec:
+  params:
+    - name: gitrepo
+      description: "The URL of the git repo from the webhook"
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
