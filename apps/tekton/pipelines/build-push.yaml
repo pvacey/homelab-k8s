@@ -7,7 +7,6 @@ spec:
   params:
     - name: repo-url
     - name: image-reference
-      default: "zot-service.cluster-services.svc.cluster.local:5000/my-app:latest"
     - name: dockerfile-path
       default: "Dockerfile"
     - name: build-context

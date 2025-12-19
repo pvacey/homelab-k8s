@@ -48,6 +48,10 @@ spec:
   params:
     - name: gitrepo
       value: $(body.repository.url)
+    - name: repo-name
+      value: $(extensions.repo_name_only)
+    - name: image-tag
+      value: $(extensions.short_sha)
 ---
 # 5. The Trigger Template (Creates the PipelineRun)
 apiVersion: triggers.tekton.dev/v1beta1
@@ -60,6 +64,8 @@ spec:
     - name: gitrepo
     - name: dockerfile-path
     - name: build-context
+    - name: repo-name
+    - name: image-tag
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -85,6 +91,8 @@ spec:
             value: $(tt.params.dockerfile-path)
           - name: build-context
             value: $(tt.params.build-context)
+          - name: image-reference
+            value: "zot-service.cluster-services.svc.cluster.local:5000/$(tt.params.repo-name):$(tt.params.image-tag)"
 ---
 # 6. The EventListener (The entry point for your webhook)
 apiVersion: triggers.tekton.dev/v1beta1
@@ -101,6 +109,12 @@ spec:
           params:
             - name: filter
               value: "body.repository.full_name == 'pvacey/orb-of-pondering'"
+            - name: overlays
+              value:
+                - key: repo_name_only
+                  expression: "body.repository.full_name.split('/')[1]"
+                - key: short_sha
+                  expression: "body.head_commit.id.truncate(7)"
       bindings:
         - ref: git-binding
         - name: dockerfile-path
