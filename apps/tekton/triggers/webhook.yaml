@@ -102,10 +102,9 @@ spec:
               value: "body.repository.full_name == 'pvacey/orb-of-pondering'"
       bindings:
         - ref: git-binding
+        - name: dockerfile-path
+          value: "backend/Dockerfile"
+        - name: build-context
+          value: "backend/"
       template:
         ref: git-template
-        params:
-          - name: dockerfile-path
-            value: "backend/Dockerfile"
-          - name: build-context
-            value: "backend/"
