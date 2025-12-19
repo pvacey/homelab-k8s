@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: git-binding
+  namespace: tekton-pipelines
 spec:
   params:
     - name: gitrepo
@@ -10,6 +11,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
+  namespace: tekton-pipelines
   name: git-template
 spec:
   resourcetemplates:
@@ -36,6 +38,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: git-listener
+  namespace: tekton-pipelines
 spec:
   triggers:
     - bindingRef:
