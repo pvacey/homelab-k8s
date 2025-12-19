@@ -114,7 +114,7 @@ spec:
                 - key: repo_name_only
                   expression: "body.repository.full_name.split('/')[1]"
                 - key: dynamic_tag
-                  expression: "string(body.repository.pushed_at) + '-' + body.head_commit.id.truncate(7)"
+                  expression: "string(int(body.repository.pushed_at)) + '-' + body.head_commit.id.truncate(7)"
       bindings:
         - ref: git-binding
         - name: dockerfile-path
