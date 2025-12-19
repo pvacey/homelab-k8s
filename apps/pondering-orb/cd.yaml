@@ -1,0 +1,49 @@
+# 1. THE REGISTRY: Points Flux to your Zot instance
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: pondering-repo
+  namespace: flux-system
+spec:
+  image: zot-service.cluster-services.svc.cluster.local:5000/orb-of-pondering
+  interval: 1m
+  insecure: true # Required for HTTP-only registries
+---
+# 2. THE POLICY: Logic to pick the "latest" image
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: pondering-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: pondering-repo
+  policy:
+    numerical:
+      order: asc
+---
+# 3. THE AUTOMATION: Commits the change back to your Git repo
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: pondering-automation
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system # Name of the GitRepository resource that holds your YAMLs
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: 'chore: update orb-of-pondering to {{ .SelectedTarget }}'
+    push:
+      branch: main
+  update:
+    path: ./clusters/primary
+    strategy: Setters
