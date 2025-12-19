@@ -58,6 +58,8 @@ metadata:
 spec:
   params:
     - name: gitrepo
+    - name: dockerfile-path
+    - name: build-context
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -78,6 +80,10 @@ spec:
         params:
           - name: repo-url
             value: $(tt.params.gitrepo)
+          - name: dockerfile-path
+            value: $(tt.params.dockerfile-path)
+          - name: build-context
+            value: $(tt.params.build-context)
 ---
 # 6. The EventListener (The entry point for your webhook)
 apiVersion: triggers.tekton.dev/v1beta1
