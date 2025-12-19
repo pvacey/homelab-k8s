@@ -42,10 +42,10 @@ metadata:
 spec:
   serviceAccountName: tekton-trigger-sa
   triggers:
-    - bindingRef:
-        name: git-binding
-      templateRef:
-        name: git-template
+    - bindings:
+        - ref: git-binding
+      template:
+        ref: git-template
 ---
 apiVersion: v1
 kind: ServiceAccount
