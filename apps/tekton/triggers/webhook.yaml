@@ -119,7 +119,7 @@ spec:
                   expression: "body.head_commit.id.truncate(7)"
                 - key: dynamic_tag
                   # Combine them: e.g., 1700000000-a1b2c3d
-                  expression: "extensions.epoch_time + '-' + extensions.short_sha"
+                  expression: "extensions.epoch_time + '-' + body.head_commit.id.truncate(7)"
       bindings:
         - ref: git-binding
         - name: dockerfile-path
