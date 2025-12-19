@@ -38,9 +38,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: "/data"
-            - name: config
-              mountPath: "/data/config.yaml"
-              subPath: "config.yaml"
       volumes:
         - name: data
           persistentVolumeClaim:
