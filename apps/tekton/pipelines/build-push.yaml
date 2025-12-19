@@ -8,6 +8,10 @@ spec:
     - name: repo-url
     - name: image-reference
       default: "zot-service.cluster-services.svc.cluster.local:5000/my-app:latest"
+    - name: dockerfile-path
+      default: "Dockerfile"
+    - name: build-context
+      default: "."
   workspaces:
     - name: shared-data
   tasks:
@@ -30,6 +34,10 @@ spec:
       params:
         - name: IMAGE
           value: $(params:image-reference)
+        - name: DOCKERFILE
+          value: $(params.dockerfile-path)
+        - name: CONTEXT
+          value: $(params.build-context)
         # Add --insecure because Zot doesn't use TLS
         - name: EXTRA_ARGS
           value: "--skip-tls-verify --insecure --insecure-pull"
