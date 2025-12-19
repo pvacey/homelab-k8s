@@ -1,19 +1,4 @@
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: soft-serve-config
-  namespace: cluster-services # Or wherever you run your git server
-data:
-  config.yaml: |
-    callbacks:
-      post-receive:
-        - |
-          curl -X POST \
-          -H "Content-Type: application/json" \
-          -d "{\"repository\": {\"url\": \"http://soft-serve-service.cluster-services.svc.cluster.local:9418/$GOSH_REPO_NAME\"}}" \
-          http://el-git-listener.tekton-pipelines.svc.cluster.local:8080
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: soft-serve-pvc
@@ -60,9 +45,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: soft-serve-pvc
-        - name: config
-          configMap:
-            name: soft-serve-config
 ---
 apiVersion: v1
 kind: Service
