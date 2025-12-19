@@ -57,27 +57,30 @@ metadata:
   namespace: tekton-pipelines
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRole
 metadata:
-  name: tekton-trigger-binding
+  name: tekton-trigger-cluster-role
   namespace: tekton-pipelines
-subjects:
-  - kind: ServiceAccount
-    name: tekton-trigger-sa
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: tekton-triggers-eventlistener-roles
+rules:
+  # Permissions to create PipelineRuns in the namespace
+  - apiGroups: ["tekton.dev"]
+    resources: ["pipelineruns", "pipelines"]
+    verbs: ["create", "get", "list"]
+  # Permissions for the Listener to manage itself and triggers
+  - apiGroups: ["triggers.tekton.dev"]
+    resources: ["eventlisteners", "triggerbindings", "triggertemplates", "clusterinterceptors", "clustertriggerbindings"]
+    verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: tekton-trigger-admin
+  name: tekton-trigger-cluster-binding
   namespace: tekton-pipelines
 subjects:
   - kind: ServiceAccount
     name: tekton-trigger-sa
+    namespace: tekton-pipelines
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: tekton-aggregate-edit
+  name: tekton-trigger-cluster-role
