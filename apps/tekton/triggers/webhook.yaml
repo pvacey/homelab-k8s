@@ -65,6 +65,7 @@ spec:
       kind: PipelineRun
       metadata:
         generateName: build-push-run-
+        namespace: tekton-pipelines
       spec:
         serviceAccountName: tekton-trigger-sa
         pipelineRef:
