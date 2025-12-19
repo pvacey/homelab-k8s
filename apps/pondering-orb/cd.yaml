@@ -21,8 +21,9 @@ spec:
   policy:
     numerical:
       order: asc
-  filterBy:
-    re: '^(\d+)-[a-f0-9]+$'
+  filterTags:
+    pattern: '^(?P<timestamp>\d+)-[a-f0-9]+$'
+    extract: '$timestamp'
 ---
 # 3. THE AUTOMATION: Commits the change back to your Git repo
 apiVersion: image.toolkit.fluxcd.io/v1
