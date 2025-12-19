@@ -1,0 +1,34 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-push-pipeline
+spec:
+  params:
+    - name: repo-url
+    - name: image-reference
+      default: "zot-service.cluster-services.svc.cluster.local:5000/my-app:latest"
+  workspaces:
+    - name: shared-data
+  tasks:
+    - name: fetch-repo
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+      params:
+        - name: url
+          value: $(params:repo-url)
+    - name: build-push
+      runAfter: ["fetch-repo"]
+      taskRef:
+        name: kaniko
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+        - name: IMAGE
+          value: $(params:image-reference)
+        # Add --insecure because Zot doesn't use TLS
+        - name: EXTRA_ARGS
+          value: ["--skip-tls-verify", "--insecure"]
