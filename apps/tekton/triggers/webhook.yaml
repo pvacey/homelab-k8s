@@ -88,7 +88,18 @@ metadata:
 spec:
   serviceAccountName: tekton-trigger-sa
   triggers:
-    - bindings:
+    - name: orb-of-pondering-repo-trigger
+      interceptors:
+        - ref: {name: "cel"}
+          params:
+            - name: filter
+              value: "body.repository.full_name == 'pvacey/orb-of-pondering'"
+      bindings:
         - ref: git-binding
       template:
         ref: git-template
+        params:
+          - name: dockerfile-path
+            value: "backend/Dockerfile"
+          - name: build-context
+            value: "backend/"
