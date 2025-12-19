@@ -47,7 +47,7 @@ metadata:
 spec:
   params:
     - name: gitrepo
-      value: $(body.repository.url)
+      value: $(body.repository.clone_url)
     - name: repo-name
       value: $(extensions.repo_name_only)
     - name: image-tag
