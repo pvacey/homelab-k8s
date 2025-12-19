@@ -44,7 +44,13 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: 'chore: update orb-of-pondering {{ range .Updated }}{{ .NewTag }}{{ end }}'
+      messageTemplate: ''
+      messageTemplate: |
+        chore: update images
+      
+        {{ range .Changed.Images -}}
+        - {{ .Identifier }} to {{ .NewTag }}
+        {{ end -}}
     push:
       branch: main
   update:
