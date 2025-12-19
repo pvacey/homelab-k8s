@@ -48,5 +48,5 @@ spec:
     push:
       branch: main
   update:
-    path: ./clusters/primary
+    path: ./app/pondering-orb
     strategy: Setters
