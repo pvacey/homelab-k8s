@@ -64,6 +64,7 @@ spec:
       metadata:
         generateName: build-push-run-
       spec:
+        serviceAccountName: tekton-trigger-sa
         pipelineRef:
           name: build-and-push-pipeline
         workspaces:

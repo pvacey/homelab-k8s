@@ -32,4 +32,4 @@ spec:
           value: $(params:image-reference)
         # Add --insecure because Zot doesn't use TLS
         - name: EXTRA_ARGS
-          value: ["--skip-tls-verify", "--insecure"]
+          value: "--skip-tls-verify --insecure --insecure-pull"
