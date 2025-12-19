@@ -68,13 +68,6 @@ spec:
         namespace: tekton-pipelines
       spec:
         serviceAccountName: tekton-trigger-sa
-        podTemplate:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1001
-            fsGroup: 65532
-            seccompProfile:
-              type: RuntimeDefault
         pipelineRef:
           name: build-and-push-pipeline
         workspaces:
