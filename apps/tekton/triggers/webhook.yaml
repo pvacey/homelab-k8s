@@ -1,4 +1,45 @@
-apiVersion: triggers.tekton.dev/v1alpha1
+# 1. The ServiceAccount that the EventListener runs as
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tekton-trigger-sa
+  namespace: tekton-pipelines
+---
+# 2. Comprehensive ClusterRole to stop the "Informer" crashes
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tekton-trigger-cluster-role
+rules:
+  # Allow creating the PipelineRuns
+  - apiGroups: ["tekton.dev"]
+    resources: ["pipelineruns", "pipelines"]
+    verbs: ["create", "get", "list", "watch"]
+  # Allow the Listener to see all Trigger components (Required for startup)
+  - apiGroups: ["triggers.tekton.dev"]
+    resources: ["eventlisteners", "triggerbindings", "triggertemplates", "interceptors", "clusterinterceptors", "clustertriggerbindings", "triggers"]
+    verbs: ["get", "list", "watch"]
+  # Allow reading secrets (often used for webhook validation)
+  - apiGroups: [""]
+    resources: ["configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+---
+# 3. Bind the ServiceAccount to the ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tekton-trigger-cluster-binding
+subjects:
+  - kind: ServiceAccount
+    name: tekton-trigger-sa
+    namespace: tekton-pipelines
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tekton-trigger-cluster-role
+---
+# 4. The Trigger Binding (Extracts data from Git JSON)
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: git-binding
@@ -8,15 +49,15 @@ spec:
     - name: gitrepo
       value: $(body.repository.url)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+# 5. The Trigger Template (Creates the PipelineRun)
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  namespace: tekton-pipelines
   name: git-template
+  namespace: tekton-pipelines
 spec:
   params:
     - name: gitrepo
-      description: "The URL of the git repo from the webhook"
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -37,7 +78,8 @@ spec:
           - name: repo-url
             value: $(tt.params.gitrepo)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+# 6. The EventListener (The entry point for your webhook)
+apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: git-listener
@@ -49,38 +91,3 @@ spec:
         - ref: git-binding
       template:
         ref: git-template
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tekton-trigger-sa
-  namespace: tekton-pipelines
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: tekton-trigger-cluster-role
-  namespace: tekton-pipelines
-rules:
-  # Permissions to create PipelineRuns in the namespace
-  - apiGroups: ["tekton.dev"]
-    resources: ["pipelineruns", "pipelines"]
-    verbs: ["create", "get", "list"]
-  # Permissions for the Listener to manage itself and triggers
-  - apiGroups: ["triggers.tekton.dev"]
-    resources: ["eventlisteners", "triggerbindings", "triggertemplates", "clusterinterceptors", "clustertriggerbindings"]
-    verbs: ["get", "list", "watch"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: tekton-trigger-cluster-binding
-  namespace: tekton-pipelines
-subjects:
-  - kind: ServiceAccount
-    name: tekton-trigger-sa
-    namespace: tekton-pipelines
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: tekton-trigger-cluster-role
