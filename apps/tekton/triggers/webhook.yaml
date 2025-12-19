@@ -39,9 +39,42 @@ kind: EventListener
 metadata:
   name: git-listener
   namespace: tekton-pipelines
+serviceAccountName: tekton-trigger-sa
 spec:
   triggers:
     - bindingRef:
         name: git-binding
       templateRef:
         name: git-template
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tekton-trigger-sa
+  namespace: tekton-pipelines
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tekton-trigger-binding
+  namespace: tekton-pipelines
+subjects:
+  - kind: ServiceAccount
+    name: tekton-trigger-sa
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tekton-triggers-eventlistener-roles
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tekton-trigger-admin
+  namespace: tekton-pipelines
+subjects:
+  - kind: ServiceAccount
+    name: tekton-trigger-sa
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tekton-aggregate-edit
