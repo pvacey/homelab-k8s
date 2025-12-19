@@ -108,7 +108,7 @@ spec:
         - ref: {name: "cel"}
           params:
             - name: filter
-              value: "body.repository.full_name == 'pvacey/orb-of-pondering' && body.ref == 'refs/heads/master"
+              value: "body.repository.full_name == 'pvacey/orb-of-pondering' && body.ref == 'refs/heads/master'"
             - name: overlays
               value:
                 - key: repo_name_only
