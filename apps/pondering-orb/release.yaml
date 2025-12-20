@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: orb-backend
-        image: zot-service.cluster-services.svc.cluster.local:5000/orb-of-pondering:1766186936-9152da6 # {"$imagepolicy": "flux-system:pondering-policy"}
+        image: 192.168.1.196:30500/orb-of-pondering:1766195505-88de0f8 # {"$imagepolicy": "flux-system:pondering-policy"}
         ports:
         - containerPort: 8000
         env:
