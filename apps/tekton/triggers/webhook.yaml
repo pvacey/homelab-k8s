@@ -92,7 +92,9 @@ spec:
           - name: build-context
             value: $(tt.params.build-context)
           - name: image-reference
-            value: "zot-service.cluster-services.svc.cluster.local:5000/$(tt.params.repo-name):$(tt.params.image-tag)"
+            value: "192.168.1.196:30500/$(tt.params.repo-name):$(tt.params.image-tag)"
+            # this reference doesn't work, you need real DNS 
+            # value: "zot-service.cluster-services.svc.cluster.local:5000/$(tt.params.repo-name):$(tt.params.image-tag)"
 ---
 # 6. The EventListener (The entry point for your webhook)
 apiVersion: triggers.tekton.dev/v1beta1

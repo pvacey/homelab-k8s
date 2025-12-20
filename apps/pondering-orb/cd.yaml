@@ -5,7 +5,7 @@ metadata:
   name: pondering-repo
   namespace: flux-system
 spec:
-  image: zot-service.cluster-services.svc.cluster.local:5000/orb-of-pondering
+  image: 192.168.1.196:30500/orb-of-pondering
   interval: 1m
   insecure: true # Required for HTTP-only registries
 ---
