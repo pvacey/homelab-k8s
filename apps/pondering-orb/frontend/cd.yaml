@@ -2,10 +2,10 @@
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-  name: pondering-repo
+  name: pondering-repo-frontend
   namespace: flux-system
 spec:
-  image: 192.168.1.196:30500/orb-of-pondering
+  image: 192.168.1.196:30500/orb-of-pondering-frontend
   interval: 1m
   insecure: true # Required for HTTP-only registries
 ---
@@ -13,7 +13,7 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
-  name: pondering-policy
+  name: pondering-policy-frontend
   namespace: flux-system
 spec:
   imageRepositoryRef:
@@ -29,7 +29,7 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
 metadata:
-  name: pondering-automation
+  name: pondering-automation-frontend
   namespace: flux-system
 spec:
   interval: 1m
@@ -44,9 +44,9 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: "it works"
+      messageTemplate: "update ponderig-orb-frontend"
     push:
       branch: main
   update:
-    path: ./apps/pondering-orb
+    path: ./apps/pondering-orb/frontend
     strategy: Setters

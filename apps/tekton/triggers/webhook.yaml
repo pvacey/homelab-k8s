@@ -49,7 +49,7 @@ spec:
     - name: gitrepo
       value: $(body.repository.clone_url)
     - name: repo-name
-      value: $(extensions.repo_name_only)
+      value: $(extensions.image_name)
     - name: image-tag
       value: $(extensions.dynamic_tag)
 ---
@@ -105,7 +105,7 @@ metadata:
 spec:
   serviceAccountName: tekton-trigger-sa
   triggers:
-    - name: orb-of-pondering-repo-trigger
+    - name: orb-of-pondering-backend-trigger
       interceptors:
         - ref: {name: "cel"}
           params:
@@ -113,8 +113,8 @@ spec:
               value: "body.repository.full_name == 'pvacey/orb-of-pondering' && body.ref == 'refs/heads/master'"
             - name: overlays
               value:
-                - key: repo_name_only
-                  expression: "body.repository.full_name.split('/')[1]"
+                - key: image_name
+                  expression: "body.repository.full_name.split('/')[1] + '-backend'"
                 - key: dynamic_tag
                   expression: "string(int(body.repository.pushed_at)) + '-' + body.head_commit.id.truncate(7)"
       bindings:
@@ -123,5 +123,19 @@ spec:
           value: "backend/Dockerfile"
         - name: build-context
           value: "backend/"
+      template:
+
+    - name: orb-of-pondering-frontend-trigger
+      interceptors:
+        - ref: {name: "cel"}
+          params:
+            - name: filter
+              value: "body.repository.full_name == 'pvacey/orb-of-pondering' && body.ref == 'refs/heads/master'"
+            - name: overlays
+              value:
+                - key: image_name
+                  expression: "body.repository.full_name.split('/')[1] + '-frontend'"
+                - key: dynamic_tag
+                  expression: "string(int(body.repository.pushed_at)) + '-' + body.head_commit.id.truncate(7)"
       template:
         ref: git-template
