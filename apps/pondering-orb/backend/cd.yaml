@@ -17,7 +17,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: pondering-repo
+    name: pondering-repo-backend
   policy:
     numerical:
       order: asc
@@ -44,7 +44,7 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: "update ponderig-orb-backend"
+      messageTemplate: "update pondering-orb-backend"
     push:
       branch: main
   update:
