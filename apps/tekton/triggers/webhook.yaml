@@ -138,5 +138,7 @@ spec:
                   expression: "body.repository.full_name.split('/')[1] + '-frontend'"
                 - key: dynamic_tag
                   expression: "string(int(body.repository.pushed_at)) + '-' + body.head_commit.id.truncate(7)"
+      bindings:
+        - ref: git-binding
       template:
         ref: git-template
