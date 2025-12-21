@@ -2,7 +2,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-  name: pondering-repo/backend
+  name: pondering-repo-backend
   namespace: flux-system
 spec:
   image: 192.168.1.196:30500/orb-of-pondering-backend
