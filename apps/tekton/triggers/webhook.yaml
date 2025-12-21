@@ -140,5 +140,9 @@ spec:
                   expression: "string(int(body.repository.pushed_at)) + '-' + body.head_commit.id.truncate(7)"
       bindings:
         - ref: git-binding
+        - name: dockerfile-path
+          value: "Dockerfile"
+        - name: build-context
+          value: "./"
       template:
         ref: git-template
