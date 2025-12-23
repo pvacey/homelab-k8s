@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bingo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bingo
+  template:
+    metadata:
+      labels:
+        app: bingo
+    spec:
+      containers:
+      - name: bingo
+        image: 192.168.1.196:30500/playing-card-bingo:latest # {"$imagepolicy": "flux-system:bingo-policy"}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bingo-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: bingo
+  ports:
+    - protocol: TCP
+      port: 8000 # Port the service exposes internally
+      targetPort: 8000 # Port the container is listening on
+      nodePort: 30503 # Port exposed on all cluster nodes
