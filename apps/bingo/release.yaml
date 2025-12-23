@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: bingo
-        image: 192.168.1.196:30500/playing-card-bingo:latest # {"$imagepolicy": "flux-system:bingo-policy"}
+        image: 192.168.1.196:30500/playing-card-bingo:1766459219-70ff5bd # {"$imagepolicy": "flux-system:bingo-policy"}
 ---
 apiVersion: v1
 kind: Service
