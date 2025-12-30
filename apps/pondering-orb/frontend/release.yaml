@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: orb-frontend
-        image: 192.168.1.196:30500/orb-of-pondering-frontend:1766461659-f2eba25 # {"$imagepolicy": "flux-system:pondering-policy-frontend"}
+        image: 192.168.1.196:30500/orb-of-pondering-frontend:1767120928-af94f5b # {"$imagepolicy": "flux-system:pondering-policy-frontend"}
         ports:
         - containerPort: 2222
 ---
