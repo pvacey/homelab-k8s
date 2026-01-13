@@ -5,7 +5,7 @@ metadata:
   name: annoying-noises-repo
   namespace: flux-system
 spec:
-  image: 192.168.1.196:30500/annoying-noises
+  image: 192.168.1.196:30500/discord-dota
   interval: 1m
   insecure: true # Required for HTTP-only registries
 ---
