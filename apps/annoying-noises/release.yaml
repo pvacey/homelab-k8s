@@ -16,6 +16,12 @@ spec:
       containers:
       - name: annoying-noises
         image: 192.168.1.196:30500/discord-dota:1768273859-6b5eea7 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
+        env:
+        - name: DISCORD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: annoying-noises-secret
+              key: DISCORD_TOKEN
 ---
 apiVersion: v1
 kind: Service
