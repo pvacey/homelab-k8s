@@ -173,7 +173,7 @@ spec:
         - ref: {name: "cel"}
           params:
             - name: filter
-              value: "body.repository.full_name == 'pvacey/discord-dota' && body.ref == 'refs/heads/main'"
+              value: "body.repository.full_name == 'pvacey/discord-dota' && body.ref == 'refs/heads/master'"
             - name: overlays
               value:
                 - key: image_name
