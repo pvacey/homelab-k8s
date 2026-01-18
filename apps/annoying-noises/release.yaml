@@ -28,7 +28,7 @@ spec:
       volumes:
       - name: config-volume
         configMap:
-          name: app-config
+          name: annoying-noises-config
 ---
 apiVersion: v1
 kind: Service
