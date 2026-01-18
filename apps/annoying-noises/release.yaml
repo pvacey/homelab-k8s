@@ -24,7 +24,7 @@ spec:
               key: DISCORD_TOKEN
         volumeMounts:
         - name: config-volume
-          mountPath: /usr/src/app/mapping.json
+          mountPath: /usr/src/app/config
       volumes:
       - name: config-volume
         configMap:
@@ -51,8 +51,7 @@ metadata:
   name: annoying-noises-config
   namespace: default
 data:
-  # The key becomes the filename, the value becomes the file content
-  config.json: |
+  mapping.json: |
     [
       {
         "event": "player.deaths",
