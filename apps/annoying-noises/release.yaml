@@ -68,7 +68,7 @@ data:
       },
       {
         "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/anime-ahh.mp3",
+        "sound": "https://www.myinstants.com/media/sounds/yooooooooooooooooooooooooo_4.mp3",
         "condition": ">",
         "value": 1
       }
