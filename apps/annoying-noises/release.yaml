@@ -79,3 +79,14 @@ data:
         "value": 1
       }
     ]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: annoying-noises-settings
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
