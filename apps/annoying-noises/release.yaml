@@ -34,7 +34,7 @@ spec:
           mountPath: /mnt
       containers:
       - name: annoying-noises
-        image: 192.168.1.196:30500/discord-dota:1772207039-7d4e87c # {"$imagepolicy": "flux-system:annoying-noises-policy"}
+        image: 192.168.1.196:30500/discord-dota:1772232723-4ec7221 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
         env:
         - name: DISCORD_TOKEN
           valueFrom:
