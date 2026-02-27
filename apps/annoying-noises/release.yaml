@@ -14,27 +14,27 @@ spec:
         app: annoying-noises
     spec:
       securityContext:
-        fsGroup: 1000  # Automatically makes volumes writable by group 1000
+        fsGroup: 1000 # Automatically makes volumes writable by group 1000
       initContainers:
       - name: init-settings # 
         image: busybox
-        command: 
-            - 'sh'
-            - '-c'
-            - |
-              if [ -d /mnt/settings.json ]; then rm -rf /mnt/settings.json; fi
-              if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi
-              
-              # This is the critical line:
-              # 664 allows the 'bun' group (1000) to write to the file
-              chmod 664 /mnt/settings.json
-              chown 1000:1000 /mnt/settings.json
+        command:
+        - 'sh'
+        - '-c'
+        - |
+          if [ -d /mnt/settings.json ]; then rm -rf /mnt/settings.json; fi
+          if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi
+
+          # This is the critical line:
+          # 664 allows the 'bun' group (1000) to write to the file
+          chmod 664 /mnt/settings.json
+          chown 1000:1000 /mnt/settings.json
         volumeMounts:
         - name: settings-volume
           mountPath: /mnt
       containers:
       - name: annoying-noises
-        image: 192.168.1.196:30500/discord-dota:1772159315-c7805d3 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
+        image: 192.168.1.196:30500/discord-dota:1772172936-f13ff08 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
         env:
         - name: DISCORD_TOKEN
           valueFrom:
