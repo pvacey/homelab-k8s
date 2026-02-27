@@ -82,8 +82,14 @@ data:
       {
         "event": "player.deaths",
         "sound": "https://www.myinstants.com/media/sounds/oh-brother-this-guy-stinks.mp3",
-        "condition": ">",
-        "value": 0
+        "condition": "===",
+        "value": 10
+      },
+      {
+        "event": "player.deaths",
+        "sound": "https://www.myinstants.com/media/sounds/studio-audience-awwww-sound-fx.mp3",
+        "condition": "!==",
+        "value": 10
       },
       {
         "event": "player.kills",
@@ -93,7 +99,13 @@ data:
       },
       {
         "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/yooooooooooooooooooooooooo_4.mp3",
+        "sound": "https://assets.explosivejuice.com/dota/cena.mp3",
+        "condition": "===",
+        "value": 10
+      },
+      {
+        "event": "player.kills",
+        "sound": "https://www.myinstants.com/media/sounds/ssbhomerun.mp3",
         "condition": ">",
         "value": 1
       }
