@@ -18,7 +18,17 @@ spec:
       initContainers:
       - name: init-settings # 
         image: busybox
-        command: ['sh', '-c', 'if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi']
+        command: 
+            - 'sh'
+            - '-c'
+            - |
+              if [ -d /mnt/settings.json ]; then rm -rf /mnt/settings.json; fi
+              if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi
+              
+              # This is the critical line:
+              # 664 allows the 'bun' group (1000) to write to the file
+              chmod 664 /mnt/settings.json
+              chown 1000:1000 /mnt/settings.json
         volumeMounts:
         - name: settings-volume
           mountPath: /mnt
