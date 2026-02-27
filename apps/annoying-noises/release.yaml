@@ -14,7 +14,7 @@ spec:
         app: annoying-noises
     spec:
       initContainers:
-      - name: init-settings
+      - name: init-settings # 
         image: busybox
         command: ['sh', '-c', 'if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi']
         volumeMounts:
