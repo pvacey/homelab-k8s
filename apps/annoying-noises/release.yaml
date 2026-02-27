@@ -13,6 +13,8 @@ spec:
       labels:
         app: annoying-noises
     spec:
+      securityContext:
+        fsGroup: 1000  # Automatically makes volumes writable by group 1000
       initContainers:
       - name: init-settings # 
         image: busybox
