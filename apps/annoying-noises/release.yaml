@@ -13,6 +13,13 @@ spec:
       labels:
         app: annoying-noises
     spec:
+      initContainers:
+      - name: init-settings
+        image: busybox
+        command: ['sh', '-c', 'if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi']
+        volumeMounts:
+        - name: settings-volume
+          mountPath: /mnt
       containers:
       - name: annoying-noises
         image: 192.168.1.196:30500/discord-dota:1772159315-c7805d3 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
