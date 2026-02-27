@@ -26,10 +26,16 @@ spec:
         - name: config-volume
           mountPath: /usr/src/app/mapping.json
           subPath: mapping.json
+        - name: settings-volume
+          mountPath: /usr/src/app/settings.json
+          subPath: settings.json
       volumes:
       - name: config-volume
         configMap:
           name: annoying-noises-config
+      - name: settings-volume
+        persistentVolumeClaim:
+          claimName: annoying-noises-settings
 ---
 apiVersion: v1
 kind: Service
