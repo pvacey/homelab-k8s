@@ -81,15 +81,27 @@ data:
     [
       {
         "event": "player.deaths",
+        "sound": "https://www.myinstants.com/media/sounds/faaah.mp3",
+        "condition": "===",
+        "value": 1
+      },
+      {
+        "event": "player.deaths",
         "sound": "https://www.myinstants.com/media/sounds/oh-brother-this-guy-stinks.mp3",
         "condition": "===",
         "value": 10
       },
       {
-        "event": "player.deaths",
-        "sound": "https://www.myinstants.com/media/sounds/studio-audience-awwww-sound-fx.mp3",
-        "condition": "!==",
-        "value": 10
+        "event": "player.kills",
+        "sound": "https://www.myinstants.com/media/sounds/anime-wow-sound-effect.mp3",
+        "condition": "===",
+        "value": 1
+      },
+      {
+        "event": "player.kills",
+        "sound": "https://www.myinstants.com/media/sounds/im-gonna-come_6HehWm4.mp3",
+        "condition": "===",
+        "value": 5
       },
       {
         "event": "player.kills",
@@ -99,9 +111,13 @@ data:
       },
       {
         "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/ssbhomerun.mp3",
-        "condition": "!==",
-        "value": 10
+        "sound": "https://www.myinstants.com/media/sounds/another-one_dPvHt2Z.mp3",
+        "condition": "*"
+      },
+      {
+        "event": "player.deaths",
+        "sound": "https://www.myinstants.com/media/sounds/studio-audience-awwww-sound-fx.mp3",
+        "condition": "*"
       }
     ]
 ---
