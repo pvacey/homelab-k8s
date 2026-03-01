@@ -24,11 +24,10 @@ spec:
         - |
           if [ -d /mnt/settings.json ]; then rm -rf /mnt/settings.json; fi
           if [ ! -f /mnt/settings.json ]; then echo "{}" > /mnt/settings.json; fi
+          if [ ! -f /mnt/mapping.json ]; then echo "[]" > /mnt/mapping.json; fi
 
-          # This is the critical line:
-          # 664 allows the 'bun' group (1000) to write to the file
-          chmod 664 /mnt/settings.json
-          chown 1000:1000 /mnt/settings.json
+          chmod 664 /mnt/settings.json /mnt/mapping.json
+          chown 1000:1000 /mnt/settings.json /mnt/mapping.json
         volumeMounts:
         - name: settings-volume
           mountPath: /mnt
@@ -42,16 +41,13 @@ spec:
               name: annoying-noises-secret
               key: DISCORD_TOKEN
         volumeMounts:
-        - name: config-volume
-          mountPath: /usr/src/app/mapping.json
-          subPath: mapping.json
         - name: settings-volume
           mountPath: /usr/src/app/settings.json
           subPath: settings.json
+        - name: settings-volume
+          mountPath: /usr/src/app/mapping.json
+          subPath: mapping.json
       volumes:
-      - name: config-volume
-        configMap:
-          name: annoying-noises-config
       - name: settings-volume
         persistentVolumeClaim:
           claimName: annoying-noises-settings
@@ -70,56 +66,6 @@ spec:
       port: 3000 # Port the service exposes internally
       targetPort: 3000 # Port the container is listening on
       nodePort: 30504 # Port exposed on all cluster nodes
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: annoying-noises-config
-  namespace: default
-data:
-  mapping.json: |
-    [
-      {
-        "event": "player.deaths",
-        "sound": "https://www.myinstants.com/media/sounds/faaah.mp3",
-        "condition": "===",
-        "value": 1
-      },
-      {
-        "event": "player.deaths",
-        "sound": "https://www.myinstants.com/media/sounds/oh-brother-this-guy-stinks.mp3",
-        "condition": "===",
-        "value": 10
-      },
-      {
-        "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/anime-wow-sound-effect.mp3",
-        "condition": "===",
-        "value": 1
-      },
-      {
-        "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/im-gonna-come_6HehWm4.mp3",
-        "condition": "===",
-        "value": 5
-      },
-      {
-        "event": "player.kills",
-        "sound": "https://assets.explosivejuice.com/dota/cena.mp3",
-        "condition": "===",
-        "value": 10
-      },
-      {
-        "event": "player.kills",
-        "sound": "https://www.myinstants.com/media/sounds/another-one_dPvHt2Z.mp3",
-        "condition": "*"
-      },
-      {
-        "event": "player.deaths",
-        "sound": "https://www.myinstants.com/media/sounds/studio-audience-awwww-sound-fx.mp3",
-        "condition": "*"
-      }
-    ]
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
