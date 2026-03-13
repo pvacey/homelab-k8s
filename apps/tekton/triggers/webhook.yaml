@@ -76,6 +76,9 @@ spec:
         serviceAccountName: tekton-trigger-sa
         pipelineRef:
           name: build-and-push-pipeline
+        retention:
+          maxFailedRuns: 5
+          maxSuccessfulRuns: 5
         workspaces:
           - name: shared-data
             volumeClaimTemplate:
@@ -84,6 +87,7 @@ spec:
                 resources:
                   requests:
                     storage: 1Gi
+            claimCleanPolicy: delete
         params:
           - name: repo-url
             value: $(tt.params.gitrepo)
