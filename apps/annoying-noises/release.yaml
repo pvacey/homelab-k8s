@@ -47,6 +47,9 @@ spec:
         - name: settings-volume
           mountPath: /usr/src/app/mapping.json
           subPath: mapping.json
+        resources:
+          limits:
+            memory: "1Gi"
       volumes:
       - name: settings-volume
         persistentVolumeClaim:
