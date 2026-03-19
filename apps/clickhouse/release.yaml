@@ -32,6 +32,24 @@ data:
       <listen_host>0.0.0.0</listen_host>
     </clickhouse>
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clickhouse-users
+  namespace: cluster-services
+data:
+  users.xml: |
+    <clickhouse>
+      <users>
+        <default>
+          <password></password>
+          <networks>
+            <ip>::/0</ip>
+          </networks>
+        </default>
+      </users>
+    </clickhouse>
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -59,12 +77,18 @@ spec:
         - name: config
           mountPath: /etc/clickhouse-server/config.d/override.xml
           subPath: config.xml
+        - name: users
+          mountPath: /etc/clickhouse-server/users.d/users.xml
+          subPath: users.xml
         - name: data
           mountPath: /var/lib/clickhouse
       volumes:
       - name: config
         configMap:
           name: clickhouse-config
+      - name: users
+        configMap:
+          name: clickhouse-users
       - name: data
         persistentVolumeClaim:
           claimName: clickhouse-pvc
