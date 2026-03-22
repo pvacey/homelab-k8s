@@ -33,7 +33,7 @@ spec:
           mountPath: /mnt
       containers:
       - name: annoying-noises
-        image: 192.168.1.196:30500/discord-dota:1774120473-5cf7b39 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
+        image: 192.168.1.196:30500/discord-dota:1774203422-4394297 # {"$imagepolicy": "flux-system:annoying-noises-policy"}
         env:
         - name: CLICKHOUSE_HOST
           value: http://clickhouse-service.cluster-services.svc.cluster.local:8123
