@@ -49,6 +49,8 @@ spec:
         - name: settings-volume
           mountPath: /usr/src/app/mapping.json
           subPath: mapping.json
+        - name: sounds-volume
+          mountPath: /usr/src/app/sounds
         resources:
           limits:
             memory: "1Gi"
@@ -56,6 +58,21 @@ spec:
       - name: settings-volume
         persistentVolumeClaim:
           claimName: annoying-noises-settings
+      - name: sounds-volume
+        persistentVolumeClaim:
+          claimName: annoying-noises-sounds
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: annoying-noises-sounds
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
