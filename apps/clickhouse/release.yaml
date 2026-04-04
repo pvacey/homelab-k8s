@@ -39,35 +39,36 @@ metadata:
   namespace: cluster-services
 data:
   users.xml: |
-    <clickhouse>
-      <users>
-        <default>
-          <password></password>
-          <networks>
-            <ip>::/0</ip>
-          </networks>
-          <profile>readwrite</profile>
-        </default>
-        <admin>
-          <password>${CLICKHOUSE_ADMIN_PASSWORD}</password>
-          <networks>
-            <ip>::/0</ip>
-          </networks>
-          <grants>
-            <query>GRANT ALL ON *.* WITH GRANT OPTION</query>
-            <query>GRANT ACCESS MANAGEMENT ON *.*</query>
-          </grants>
-        </admin>
-      </users>
-      <profiles>
-        <readwrite>
-          <readonly>0</readonly>
-          <allow_ddl>0</allow_ddl>
-          <allow_introspection_functions>0</allow_introspection_functions>
-          <access_management>0</access_management>
-        </readwrite>
-      </profiles>
-    </clickhouse>
+      <clickhouse>
+          <users>
+              <default>
+                  <password></password>
+                  <networks>
+                      <ip>::/0</ip>
+                  </networks>
+                  <profile>default</profile>
+              </default>
+      
+              <admin>
+                  <password from_env="CLICKHOUSE_ADMIN_PASSWORD" />
+                  <networks>
+                      <ip>::/0</ip>
+                  </networks>
+                  <profile>admin_profile</profile>
+                  <access_management>1</access_management>
+              </admin>
+          </users>
+      
+          <profiles>
+              <default>
+                  <readonly>1</readonly>
+              </default>
+              <admin_profile>
+                  <readonly>0</readonly>
+                  <allow_ddl>1</allow_ddl>
+              </admin_profile>
+          </profiles>
+      </clickhouse>
 ---
 apiVersion: apps/v1
 kind: Deployment
