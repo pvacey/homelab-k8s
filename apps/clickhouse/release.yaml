@@ -46,7 +46,7 @@ data:
                   <networks>
                       <ip>::/0</ip>
                   </networks>
-                  <profile>default</profile>
+                  <profile>readwrite</profile>
               </default>
       
               <admin>
@@ -60,9 +60,10 @@ data:
           </users>
       
           <profiles>
-              <default>
-                  <readonly>1</readonly>
-              </default>
+              <readwrite>
+                  <readonly>0</readonly>
+                  <allow_ddl>0</allow_ddl>
+              </readwrite>
               <admin_profile>
                   <readonly>0</readonly>
                   <allow_ddl>1</allow_ddl>
