@@ -46,8 +46,27 @@ data:
           <networks>
             <ip>::/0</ip>
           </networks>
+          <profile>readwrite</profile>
         </default>
+        <admin>
+          <password>${CLICKHOUSE_ADMIN_PASSWORD}</password>
+          <networks>
+            <ip>::/0</ip>
+          </networks>
+          <grants>
+            <query>GRANT ALL ON *.* WITH GRANT OPTION</query>
+            <query>GRANT ACCESS MANAGEMENT ON *.*</query>
+          </grants>
+        </admin>
       </users>
+      <profiles>
+        <readwrite>
+          <readonly>0</readonly>
+          <allow_ddl>0</allow_ddl>
+          <allow_introspection_functions>0</allow_introspection_functions>
+          <access_management>0</access_management>
+        </readwrite>
+      </profiles>
     </clickhouse>
 ---
 apiVersion: apps/v1
@@ -82,6 +101,12 @@ spec:
           subPath: users.xml
         - name: data
           mountPath: /var/lib/clickhouse
+      env:
+      - name: CLICKHOUSE_ADMIN_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: clickhouse-admin
+            key: password
       volumes:
       - name: config
         configMap:
