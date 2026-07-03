@@ -26,6 +26,24 @@ spec:
       labels:
         app: paseo-dev
     spec:
+      initContainers:
+      - name: init-config
+        image: 192.168.1.196:30500/paseo-dev:placeholder # {"$imagepolicy": "flux-system:paseo-dev-policy"}
+        command:
+        - sh
+        - -c
+        - |
+          if [ ! -f /root/.paseo/config.json ]; then
+            mkdir -p /root/.paseo
+            echo '{"daemon":{"relay":{"enabled":false}}}' > /root/.paseo/config.json
+          fi
+        volumeMounts:
+        - name: data
+          mountPath: /root
+          subPath: root
+        - name: data
+          mountPath: /workspace
+          subPath: workspace
       containers:
       - name: paseo-dev
         image: 192.168.1.196:30500/paseo-dev:placeholder # {"$imagepolicy": "flux-system:paseo-dev-policy"}
@@ -41,19 +59,16 @@ spec:
               name: paseo-auth
               key: password
         volumeMounts:
-        - name: root
+        - name: data
           mountPath: /root
-        - name: workspace
-          mountPath: /workspace
-      volumes:
-      - name: root
-        persistentVolumeClaim:
-          claimName: paseo-dev-pvc
           subPath: root
-      - name: workspace
+        - name: data
+          mountPath: /workspace
+          subPath: workspace
+      volumes:
+      - name: data
         persistentVolumeClaim:
           claimName: paseo-dev-pvc
-          subPath: workspace
 ---
 apiVersion: v1
 kind: Service
