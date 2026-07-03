@@ -1,0 +1,49 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: paseo-dev-repo
+  namespace: flux-system
+spec:
+  image: 192.168.1.196:30500/paseo-dev
+  interval: 1m
+  insecure: true
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: paseo-dev-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: paseo-dev-repo
+  policy:
+    numerical:
+      order: asc
+  filterTags:
+    pattern: '^(?P<timestamp>\d+)-[a-f0-9]+$'
+    extract: '$timestamp'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: paseo-dev-automation
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: "update paseo-dev"
+    push:
+      branch: main
+  update:
+    path: ./apps/paseo-dev
+    strategy: Setters
