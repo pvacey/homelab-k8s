@@ -30,7 +30,7 @@ spec:
       - name: paseo-dev
         image: 192.168.1.196:30500/paseo-dev:1783104214-08191b2 # {"$imagepolicy": "flux-system:paseo-dev-policy"}
         command: ["paseo"]
-        args: ["daemon", "--web-ui", "--listen", "0.0.0.0:6767"]
+        args: ["daemon", "start", "--web-ui", "--listen", "0.0.0.0:6767"]
         workingDir: /workspace
         ports:
         - containerPort: 6767
@@ -43,17 +43,17 @@ spec:
         volumeMounts:
         - name: root
           mountPath: /root
+          subPath: root
         - name: workspace
           mountPath: /workspace
+          subPath: workspace
       volumes:
       - name: root
         persistentVolumeClaim:
           claimName: paseo-dev-pvc
-          subPath: root
       - name: workspace
         persistentVolumeClaim:
           claimName: paseo-dev-pvc
-          subPath: workspace
 ---
 apiVersion: v1
 kind: Service
