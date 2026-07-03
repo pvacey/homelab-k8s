@@ -35,6 +35,8 @@ spec:
         ports:
         - containerPort: 6767
         env:
+        - name: PASEO_HOSTNAMES
+          value: ai.ponder.guru
         - name: PASEO_PASSWORD
           valueFrom:
             secretKeyRef:
