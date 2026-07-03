@@ -28,9 +28,9 @@ spec:
     spec:
       containers:
       - name: paseo-dev
-        image: 192.168.1.196:30500/paseo-dev:placeholder # {"$imagepolicy": "flux-system:paseo-dev-policy"}
+        image: 192.168.1.196:30500/paseo-dev:1783104214-08191b2 # {"$imagepolicy": "flux-system:paseo-dev-policy"}
         command: ["paseo"]
-        args: ["daemon", "start", "--web-ui", "--listen", "0.0.0.0:6767"]
+        args: ["daemon", "start", "--web-ui", "--listen", "0.0.0.0:6767", "--foreground"]
         workingDir: /workspace
         ports:
         - containerPort: 6767
@@ -41,10 +41,14 @@ spec:
               name: paseo-auth
               key: password
         volumeMounts:
-        - name: workspace
+        - name: data
+          mountPath: /root
+          subPath: root
+        - name: data
           mountPath: /workspace
+          subPath: workspace
       volumes:
-      - name: workspace
+      - name: data
         persistentVolumeClaim:
           claimName: paseo-dev-pvc
 ---
