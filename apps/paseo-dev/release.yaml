@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: paseo-dev
-        image: 192.168.1.196:30500/paseo-dev:placeholder # {"$imagepolicy": "flux-system:paseo-dev-policy"}
+        image: 192.168.1.196:30500/paseo-dev:1783104214-08191b2 # {"$imagepolicy": "flux-system:paseo-dev-policy"}
         command: ["paseo"]
         args: ["daemon", "--web-ui", "--listen", "0.0.0.0:6767"]
         workingDir: /workspace
