@@ -76,9 +76,6 @@ spec:
         serviceAccountName: tekton-trigger-sa
         pipelineRef:
           name: build-and-push-pipeline
-        retention:
-          maxFailedRuns: 5
-          maxSuccessfulRuns: 5
         workspaces:
           - name: shared-data
             volumeClaimTemplate:
