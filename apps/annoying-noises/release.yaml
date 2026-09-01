@@ -33,7 +33,7 @@ spec:
           mountPath: /mnt
       containers:
       - name: annoying-noises
-        image: 192.168.1.196:30500/discord-dota:1788220527-3a8193a # {"$imagepolicy": "flux-system:annoying-noises-policy"}
+        image: 192.168.1.196:30500/discord-dota:1788224097-b3c186e # {"$imagepolicy": "flux-system:annoying-noises-policy"}
         env:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: https://otelcollectorhttp.explosivejuice.com
