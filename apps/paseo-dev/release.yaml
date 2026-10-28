@@ -29,7 +29,6 @@ spec:
       containers:
       - name: paseo-dev
         image: 192.168.1.196:30500/paseo-dev:1792553922-36d71c8 # {"$imagepolicy": "flux-system:paseo-dev-policy"}
-        command: ["/entrypoint.sh"]
         workingDir: /workspace
         ports:
         - containerPort: 6767
@@ -43,8 +42,8 @@ spec:
               key: password
         volumeMounts:
         - name: data
-          mountPath: /root
-          subPath: root
+          mountPath: /home/paseo
+          subPath: paseo-home
         - name: data
           mountPath: /workspace
           subPath: workspace
