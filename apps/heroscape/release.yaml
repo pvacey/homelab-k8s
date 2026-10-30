@@ -43,10 +43,10 @@ spec:
       - name: heroscape
         image: 192.168.1.196:30500/heroscape-draft:0-0000000 # {"$imagepolicy": "flux-system:heroscape-policy"}
         ports:
-        - containerPort: 8000
+        - containerPort: 8008
         env:
         - name: PORT
-          value: "8000"
+          value: "8008"
         - name: DATA_DIR
           value: /data
         # SHA-256 of the photo code (the code itself is never stored). To change the code:
