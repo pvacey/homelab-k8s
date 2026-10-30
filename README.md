@@ -25,6 +25,7 @@ Git Push → Flux detects change → Deploys to cluster
 | **paseo-dev** | Remote dev environment with Paseo + Opencode |
 | **annoying-noises** | Discord bot for Dota sound effects |
 | **pondering-orb** | Full stack web application |
+| **heroscape** | Heroscape army draft web app |
 | **zot** | Local container registry |
 | **cloudflared** | Cloudflare tunnel ingress |
 
