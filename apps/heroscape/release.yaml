@@ -41,7 +41,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: heroscape
-        image: 192.168.1.196:30500/heroscape-draft:1793389678-f845670 # {"$imagepolicy": "flux-system:heroscape-policy"}
+        image: 192.168.1.196:30500/heroscape-draft:1793389957-e765595 # {"$imagepolicy": "flux-system:heroscape-policy"}
         ports:
         - containerPort: 8008
         env:
