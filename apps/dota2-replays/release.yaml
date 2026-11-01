@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dota2-replays
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dota2-replays
+  template:
+    metadata:
+      labels:
+        app: dota2-replays
+    spec:
+      securityContext:
+        fsGroup: 1000 # Automatically makes volumes writable by group 1000
+      containers:
+      - name: dota2-replays
+        image: 192.168.1.196:30500/dota2-replays:0-0000000 # {"$imagepolicy": "flux-system:dota2-replays-policy"}
+        volumeMounts:
+        - name: data-volume
+          mountPath: /app/var
+        resources:
+          limits:
+            memory: "1Gi"
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: dota2-replays-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dota2-replays-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
