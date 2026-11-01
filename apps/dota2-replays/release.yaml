@@ -40,3 +40,17 @@ spec:
   resources:
     requests:
       storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dota2-replays-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: heroscape
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
