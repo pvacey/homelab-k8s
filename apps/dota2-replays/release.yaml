@@ -49,7 +49,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: heroscape
+    app: dota2-replays
   ports:
     - protocol: TCP
       port: 8000
