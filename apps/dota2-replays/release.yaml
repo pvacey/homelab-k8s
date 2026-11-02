@@ -23,7 +23,7 @@ spec:
           mountPath: /app/var
         resources:
           limits:
-            memory: "1Gi"
+            memory: "2Gi"
       volumes:
       - name: data-volume
         persistentVolumeClaim:
