@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: paseo-dev
-        image: 192.168.1.196:30500/paseo-dev:1793149467-64056db # {"$imagepolicy": "flux-system:paseo-dev-policy"}
+        image: 192.168.1.196:30500/paseo-dev:1793756773-c36087d # {"$imagepolicy": "flux-system:paseo-dev-policy"}
         workingDir: /workspace
         ports:
         - containerPort: 6767
