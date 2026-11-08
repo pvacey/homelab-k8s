@@ -17,7 +17,7 @@ spec:
         fsGroup: 1000 # Automatically makes volumes writable by group 1000
       containers:
       - name: dota2-replays
-        image: 192.168.1.196:30500/dota2-replays:1793858206-7d1aaeb # {"$imagepolicy": "flux-system:dota2-replays-policy"}
+        image: 192.168.1.196:30500/dota2-replays:1794155260-7769954 # {"$imagepolicy": "flux-system:dota2-replays-policy"}
         volumeMounts:
         - name: data-volume
           mountPath: /app/var
