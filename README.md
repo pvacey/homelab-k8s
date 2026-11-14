@@ -28,6 +28,7 @@ Git Push → Flux detects change → Deploys to cluster
 | **heroscape** | Heroscape army draft web app |
 | **zot** | Local container registry |
 | **cloudflared** | Cloudflare tunnel ingress |
+| **fakecloud** | Fake AWS emulator (Lambda on k8s backend) |
 
 ## Directory Structure
 
