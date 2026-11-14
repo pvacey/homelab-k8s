@@ -28,7 +28,7 @@ Git Push → Flux detects change → Deploys to cluster
 | **heroscape** | Heroscape army draft web app |
 | **zot** | Local container registry |
 | **cloudflared** | Cloudflare tunnel ingress |
-| **fakecloud** | Fake AWS emulator (Lambda on k8s backend) |
+| **floci** | AWS emulator (Lambda on k8s backend) |
 
 ## Directory Structure
 
@@ -41,7 +41,8 @@ Git Push → Flux detects change → Deploys to cluster
 │   ├── annoying-noises/
 │   ├── pondering-orb/
 │   ├── zot/           # Container registry
-│   └── cloudflared/
+│   ├── cloudflared/
+│   └── floci/         # AWS emulator
 └── clusters/
     └── primary/       # Cluster configuration
 ```
