@@ -2,8 +2,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: cluster-services
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: fakecloud
