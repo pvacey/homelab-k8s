@@ -64,7 +64,7 @@ spec:
       serviceAccountName: fakecloud
       containers:
       - name: fakecloud
-        image: ghcr.io/faiscadev/fakecloud:latest
+        image: ghcr.io/faiscadev/fakecloud:v0.51.0
         ports:
         - containerPort: 4566
         env:
