@@ -66,6 +66,9 @@ spec:
       labels:
         app: floci
     spec:
+      # Prevents kubelet from injecting Service env vars (FLOCI_PORT=tcp://...)
+      # which collide with floci's own FLOCI_PORT config property
+      enableServiceLinks: false
       serviceAccountName: floci
       containers:
       - name: floci
